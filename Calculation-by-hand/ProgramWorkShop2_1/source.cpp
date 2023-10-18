@@ -6,7 +6,7 @@
 #include<format>
 using namespace std;
 
-const int MAX_CALCULATION_DIGITS = 51;//1桁上がりうる
+const int MAX_CALCULATION_DIGITS = 52;//1桁上がりうる
 /// <summary>
 /// 
 /// </summary>
@@ -49,7 +49,7 @@ bool Conversion(string input, int conversionInt[MAX_CALCULATION_DIGITS])
 
 	if (isvalid == false)
 	{
-		cout << "無効な入力です。数字あるいは-、+を入力して下さい。桁数は"<<MAX_CALCULATION_DIGITS <<"までです。"<< "\n";
+		cout << "無効な入力です。数字あるいは-、+を入力して下さい。桁数は" << MAX_CALCULATION_DIGITS << "までです。" << "\n";
 		return false;
 	}
 	else
@@ -131,13 +131,38 @@ void Subtraction(int inputTotal[MAX_CALCULATION_DIGITS], int inputNow[MAX_CALCUL
 }
 void DisplayNumber(int Numbers[MAX_CALCULATION_DIGITS])
 {
+	int tmp[MAX_CALCULATION_DIGITS];
+	if (Numbers[MAX_CALCULATION_DIGITS-1] == 9)
+	{
+		int Numbertmp[MAX_CALCULATION_DIGITS];
+		for (int i = 0; i < MAX_CALCULATION_DIGITS; i++)
+		{
+			Numbertmp[i] = Numbers[i];
+		}
+		for (int i = 0; i < MAX_CALCULATION_DIGITS; i++)
+		{
+			tmp[i] = 0;
+		}
+		tmp[MAX_CALCULATION_DIGITS - 1] = 1;
+		Numbertmp[MAX_CALCULATION_DIGITS - 1] = 0;
+		Subtraction(tmp, Numbertmp);
+
+	}
+	else
+	{
+		for (int i = 0; i < MAX_CALCULATION_DIGITS; i++)
+		{
+			tmp[i] = Numbers[i];
+		}
+	}
+
 	bool displayfrag = false;
 	for (int i = MAX_CALCULATION_DIGITS - 1; i >= 0; i--)
 	{
-		if (Numbers[i] != 0)
+		if (tmp[i] != 0)
 			displayfrag = true;
 		if (displayfrag)
-			cout << Numbers[i];
+			cout << tmp[i];
 		else if (i == 0)
 			cout << 0;
 		else
